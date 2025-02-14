@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Age Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 Age Calculator 🎉</h1>
+        <p>Enter your Date of Birth:</p>
+        
+        <div class="input-box">
+            <input type="date" id="dob">
+        </div>
+
+        <button onclick="calculateAge()">Calculate Age</button>
+
+        <div id="result-container">
+            <p id="result"></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateAge() {
+            let dobInput = document.getElementById("dob").value;
+
+            if (!dobInput) {
+                alert("Please enter your date of birth!");
+                return;
+            }
+
+            let dob = new Date(dobInput);
+            let today = new Date();
+
+            let years = today.getFullYear() - dob.getFullYear();
+            let months = today.getMonth() - dob.getMonth();
+            let days = today.getDate() - dob.getDate();
+
+            if (days < 0) {
+                months--;
+                let lastMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                days += lastMonth;
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            let resultText = `🎉 You are <span style="color: #ff4757;">${years}</span> years, 
+                              <span style="color: #1e90ff;">${months}</span> months, and 
+                              <span style="color: #32cd32;">${days}</span> days old!`;
+
+            let resultContainer = document.getElementById("result-container");
+            document.getElementById("result").innerHTML = resultText;
+
+            resultContainer.classList.add("show");
+
+            document.body.style.background = `linear-gradient(135deg, #${Math.floor(Math.random()*16777215).toString(16)}, #fad0c4)`;
+        }
+    </script>
+</body>
+</html>
